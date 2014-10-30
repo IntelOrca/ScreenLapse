@@ -165,7 +165,7 @@ namespace IntelOrca.ScreenLapse
 			try {
 				switch (Path.GetExtension(nextPath).ToLower()) {
 				case ".jpg":
-				case ".jepg":
+				case ".jpeg":
 					_saveBG.Bitmap.Save(nextPath, ImageFormat.Jpeg);
 					break;
 				case "png":
