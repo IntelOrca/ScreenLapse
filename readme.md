@@ -26,7 +26,7 @@ for creation of time lapses.
 ## Creating a timelapse
 ```
 screenlapse ./mytimelapse.json
-ffmpeg -f image2 -c:v mpeg4 -pix_fmt yuv420p -qscale 0 -i  -r 8 ./img/cap_%04d.png ./mytimelapse.mp4
+ffmpeg -f image2 -i ./cap_%05d.jpg -c:v mpeg4 -pix_fmt yuv420p -qscale 0 -r 8 ./mytimelapse.mp4
 ```
 
 ## TODO

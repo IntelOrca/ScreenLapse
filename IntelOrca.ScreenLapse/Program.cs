@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -74,7 +75,6 @@ namespace IntelOrca.ScreenLapse
 				if (config.Output.Count(x => x == '{') != 1)
 					throw new Exception();
 				config.Output = config.Output.Replace("{", "{0:");
-				config.Output += ".png";
 				String.Format(config.Output, "0");
 			} catch {
 				Console.Error.WriteLine("Invalid output format specified.");
@@ -163,7 +163,18 @@ namespace IntelOrca.ScreenLapse
 
 			string nextPath = GetNextOutputPath(config);
 			try {
-				_saveBG.Bitmap.Save(nextPath);
+				switch (Path.GetExtension(nextPath).ToLower()) {
+				case ".jpg":
+				case ".jepg":
+					_saveBG.Bitmap.Save(nextPath, ImageFormat.Jpeg);
+					break;
+				case "png":
+					_saveBG.Bitmap.Save(nextPath, ImageFormat.Png);
+					break;
+				default:
+					_saveBG.Bitmap.Save(nextPath);
+					break;
+				}			
 			} catch { }
 			_numCaptures++;
 		}
